@@ -1,0 +1,18 @@
+import requests
+import zipfile
+import io
+
+# URL of the ZIP file
+url = "https://github.com/MicrosoftLearning/mslearn-fabric/raw/Main/Allfiles/Labs/16b/16-reusable-assets.zip"
+
+# Download the ZIP file
+response = requests.get(url)
+if response.status_code == 200:
+    # Create a ZipFile object from the downloaded content
+    with zipfile.ZipFile(io.BytesIO(response.content)) as zip_ref:
+        # Extract all the contents to the current directory
+        zip_ref.extractall()
+    print("ZIP file extracted successfully.")
+else:
+    print(f"Failed to download the ZIP file. Status code: {response.status_code}")
+    
